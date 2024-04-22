@@ -250,6 +250,17 @@ public class SearchStatistics implements Listener<ClientStateInformation> {
         String[] essentials = new String[]{  //TODO maybe add some more
                 "TARGET_CLASS", "criterion",
                 RuntimeVariable.Coverage.toString(),
+//                RuntimeVariable.Total_Branches.toString(),
+//                RuntimeVariable.Covered_Branches.toString(),
+//                RuntimeVariable.Lines.toString(),
+//                RuntimeVariable.Covered_Lines.toString(),
+//                RuntimeVariable.Total_Methods.toString(),
+//                RuntimeVariable.Covered_Methods.toString(),
+//                RuntimeVariable.Fitness_Evaluations.toString(),
+//                RuntimeVariable.Generations.toString(),
+//                RuntimeVariable.Total_Time.toString(),
+//                RuntimeVariable.Size.toString(),
+//                RuntimeVariable.Length.toString(),
                 //TODO: why is this fixed?
                 //RuntimeVariable.BranchCoverage.toString(),
                 RuntimeVariable.Total_Goals.toString(),

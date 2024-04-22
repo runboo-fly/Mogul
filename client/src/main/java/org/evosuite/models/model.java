@@ -16,7 +16,7 @@ public class model {
         // 构建请求体
         RequestBody body = buildRequestBody();
 
-        String token = "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"; // 请替换为实际的 Bearer Token
+        String token = "sk-UmNLNh140BD73A8B6702T3BLbkFJ60e3BFe87B6546718d18"; // 请替换为实际的 Bearer Token
         Request request = new Request.Builder()
                 .url("https://cn2us02.opapi.win/v1/chat/completions")
                 .method("POST", body)
@@ -33,7 +33,6 @@ public class model {
             ObjectMapper objectMapper = new ObjectMapper();
             ChatCompletion chatCompletion = objectMapper.readValue(responseBody, ChatCompletion.class);
 
-            System.out.println("Assistant's response: " + chatCompletion.getChoices().get(0).getMessage().getContent());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,8 +43,9 @@ public class model {
     private static RequestBody buildRequestBody() {
 
         String model = "gpt-3.5-turbo";
-        String systemContent = "You are a helpful assistant.";
-        String userContent = "Say test";
+        String systemContent = "You are a useful AI assistant, using your coding and language skills to generate unit test for Java programs. Use junit5 or mockito 4.x when you need.";
+        String userContent = "this is a java class:" +
+                "Write the code in a single test method as much as possible.";
 
         // 构建消息列表
         List<requestMessage> requetmessages = Arrays.asList(
@@ -93,13 +93,20 @@ public class model {
     private static class ChatCompletion {
         private List<Choice> choices;
         private String id;
+        private String model;
+
+        private Usage usage;
+
+        public String getModel() {
+            return model;
+        }
+
+        public Usage getUsage() {
+            return usage;
+        }
 
         public String getId() {
             return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
         }
 
         public List<Choice> getChoices() {
@@ -107,10 +114,32 @@ public class model {
         }
     }
 
+    private static class Usage{
+        private int completion_tokens;
+        private int prompt_tokens;
+        private int total_tokens;
+        public int getPrompt_tokens() {
+            return prompt_tokens;
+        }
+        public int getCompletion_tokens() {
+            return completion_tokens;
+        }
+        public int getTotal_tokens() {
+            return total_tokens;
+        }
+
+
+    }
+
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Choice {
+        private int index;
         private Message message;
+
+        public int getIndex() {
+            return index;
+        }
 
         public Message getMessage() {
             return message;
@@ -119,12 +148,18 @@ public class model {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Message {
+
         private String role;
         private String content;
 
         public String getContent() {
             return content;
         }
+
+        public String getRole() {
+            return role;
+        }
+
     }
 }
 
