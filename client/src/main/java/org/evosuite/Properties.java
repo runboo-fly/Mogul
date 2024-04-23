@@ -531,7 +531,13 @@ public class Properties {
     // --------- LS ---------
 
     @Parameter(key = "local_search_rate", group = "Local Search", description = "Apply local search at every X generation")
-    public static int LOCAL_SEARCH_RATE = -1;
+    public static int LOCAL_SEARCH_RATE = 1;
+
+    @Parameter(key = "language_model_search_rate",group = "Language Model Search", description = "Apply model search at every X generation")
+    public static int LANGUAGE_MODEL_SEARCH_RATE = 10;
+
+    @Parameter(key = "language_model_search_probability",group = "Language Model Search", description = "Probability of apply model search at every X generation")
+    public static double LANGUAGE_MODEL_SEARCH_PROBABILITY = 0.5;
 
     @Parameter(key = "local_search_probability", group = "Local Search", description = "Probability of applying local search at every X generation")
     @DoubleValue(min = 0.0, max = 1.0)

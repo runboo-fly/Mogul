@@ -26,6 +26,7 @@ import org.evosuite.Properties;
 import org.evosuite.TestGenerationContext;
 import org.evosuite.TimeController;
 import org.evosuite.ga.ConstructionFailedException;
+import org.evosuite.lm.LanguageModelGA;
 import org.evosuite.runtime.mock.MockList;
 import org.evosuite.runtime.util.AtMostOnceLogger;
 import org.evosuite.runtime.util.Inputs;
@@ -34,6 +35,7 @@ import org.evosuite.seeding.ObjectPoolManager;
 import org.evosuite.setup.TestCluster;
 import org.evosuite.setup.TestClusterGenerator;
 import org.evosuite.setup.TestUsageChecker;
+import org.evosuite.testcase.mutation.LanguageModelSeed;
 import org.evosuite.testcase.mutation.RandomInsertion;
 import org.evosuite.testcase.statements.*;
 import org.evosuite.testcase.statements.environment.EnvironmentStatements;
@@ -2350,6 +2352,11 @@ public class TestFactory {
     public int insertRandomStatement(TestCase test, int lastPosition) {
         RandomInsertion rs = new RandomInsertion();
         return rs.insertStatement(test, lastPosition);
+    }
+
+    public void modelStatement(TestCase test){
+        LanguageModelSeed lms = new LanguageModelSeed();
+        lms.generateStatement(test);
     }
 
     /**
