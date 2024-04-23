@@ -58,9 +58,11 @@ public class MOSuiteStrategy extends TestGenerationStrategy {
             Properties.TEST_ARCHIVE = false;
         }
 
+        //创建一个针对测试套件的遗传算法实例algorithm，GAFactory
         // Set up search algorithm
         PropertiesSuiteGAFactory algorithmFactory = new PropertiesSuiteGAFactory();
 
+        //根据properties中algorithm的值设置GA，MOSuite都是遗传算法
         GeneticAlgorithm<TestSuiteChromosome> algorithm = algorithmFactory.getSearchAlgorithm();
 
         // Override chromosome factory

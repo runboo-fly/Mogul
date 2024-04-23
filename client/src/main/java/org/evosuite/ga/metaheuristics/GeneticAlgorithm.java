@@ -163,6 +163,12 @@ public abstract class GeneticAlgorithm<T extends Chromosome<T>> implements Searc
         }
         return false;
     }
+    protected boolean shouldApplyLanguageModelSearch(){
+        if(getAge() % Properties.LANGUAGE_MODEL_SEARCH_RATE == 0){
+            return Randomness.nextDouble() <= Properties.LANGUAGE_MODEL_SEARCH_PROBABILITY;
+        }
+        return false;
+    }
 
     protected void disableFirstSecondaryCriterion() {
         if (TestSuiteChromosome.getSecondaryObjectivesSize() > 1) {

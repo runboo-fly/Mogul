@@ -26,6 +26,7 @@ import org.evosuite.ga.archive.Archive;
 import org.evosuite.ga.metaheuristics.mosa.AbstractMOSA;
 import org.evosuite.testcase.TestChromosome;
 import org.evosuite.testcase.factories.RandomLengthTestFactory;
+import org.evosuite.testcase.factories.TargetUncoveredTestFactory;
 import org.evosuite.testsuite.TestSuiteChromosome;
 import org.evosuite.utils.Randomness;
 import org.slf4j.Logger;
@@ -47,6 +48,8 @@ public class MIO extends AbstractMOSA {
     private static final Logger logger = LoggerFactory.getLogger(MIO.class);
 
     private final ChromosomeFactory<TestChromosome> randomFactory = new RandomLengthTestFactory();
+
+    private final ChromosomeFactory<TestChromosome> modelFactory = new TargetUncoveredTestFactory();
 
     private double pr = Properties.P_RANDOM_TEST_OR_FROM_ARCHIVE;
 
@@ -84,7 +87,7 @@ public class MIO extends AbstractMOSA {
 
             TestChromosome test = null;
             if (Randomness.nextDouble() < this.pr) {
-                test = this.randomFactory.getChromosome();
+                test = this.modelFactory.getChromosome();
                 if (test.size() == 0) {
                     // in case EvoSuite fails to generate a new random test
                     // case, get one from the archive
@@ -93,7 +96,7 @@ public class MIO extends AbstractMOSA {
             } else {
                 test = Archive.getArchiveInstance().getSolution();
                 if (test == null || test.size() == 0) {
-                    test = this.randomFactory.getChromosome();
+                    test = this.modelFactory.getChromosome();
                 }
             }
             assert test != null && test.size() != 0;
